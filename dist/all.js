@@ -1,0 +1,1 @@
+const button=document.getElementById("button"),popup=document.getElementById("popup");button.addEventListener("click",()=>{popup.style.display="grid"});
