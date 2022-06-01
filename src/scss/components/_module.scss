@@ -1,0 +1,51 @@
+@use "../abstracts/" as *;
+
+.module {
+	width: 1440px;
+	display: grid;
+	grid-template-columns: 1fr repeat(2, 2fr) 1fr;
+	gap: 5%;
+	padding-top: 96px;
+}
+
+.module__content {
+	grid-column: 3/4;
+	justify-self: left;
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+}
+
+.module__image {
+	grid-column: 2/3;
+	justify-self: right;
+	height: 300px;
+}
+
+.module__button {
+	width: 128px;
+	height: 48px;
+	padding: 16px 40px 16px 40px;
+	background-color: $color-primary;
+	border-radius: 32px;
+	font-family: $font;
+	font-size: 1rem;
+	color: #fff;
+	text-align: center;
+}
+
+.module__title {
+	font-family: $font;
+	font-style: normal;
+	font-size: 2.625rem;
+	color: $color-dark;
+}
+
+.module__text {
+	font-family: $font;
+	font-style: normal;
+	font-size: 1rem;
+	color: $color-dark;
+	text-align: justify;
+	line-height: 150%;
+}
