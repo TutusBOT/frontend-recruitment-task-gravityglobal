@@ -9,7 +9,7 @@
 		/>
 		<title>Bartłomiej Tutak - Recruitment task</title>
 		<link rel="stylesheet" href="./dist/main.css" />
-		<script defer src="./src/js/main.js"></script>
+		<script defer src="./dist/all.js"></script>
 	</head>
 	<body>
 		<div class="module">
@@ -28,7 +28,17 @@
 				</div>
 				<button id="button" class="module__button">Button</button>
 			</div>
-			<div id="popup" class="module__popup">sadf</div>
+			<div id="popup" class="module__popup">
+				<div class="module__content module__content--popup">
+					<h2 class="module__title">Alert!</h2>
+					<div class="module__text">
+						You have clicked
+						<span id="module-counter" class="semibold">0 times</span> to related
+						button
+					</div>
+					<button class="module__close-button">X</button>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>
