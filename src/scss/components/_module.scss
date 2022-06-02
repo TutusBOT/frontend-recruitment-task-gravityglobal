@@ -3,22 +3,25 @@
 .module {
 	width: 1440px;
 	display: grid;
-	grid-template-columns: 1fr repeat(2, 2fr) 1fr;
+	grid-template-columns: 1fr 1fr;
 	gap: 5%;
-	padding-top: 96px;
+	align-items: center;
+	align-content: start;
+	margin-top: 96px;
 }
 
 .module__content {
-	grid-column: 3/4;
 	justify-self: left;
 	display: flex;
 	flex-direction: column;
-	gap: 1.5rem;
+	justify-content: space-between;
+	max-width: 380px;
+	height: 250px;
 }
 
 .module__image {
-	grid-column: 2/3;
 	justify-self: right;
+	max-width: 505px;
 	height: 300px;
 }
 
@@ -40,6 +43,7 @@
 	font-family: $font;
 	font-style: normal;
 	font-size: 2.625rem;
+	font-weight: 700;
 	color: $color-dark;
 }
 
@@ -47,6 +51,7 @@
 	font-family: $font;
 	font-style: normal;
 	font-size: 1rem;
+	font-weight: 300;
 	color: $color-dark;
 	text-align: justify;
 	line-height: 150%;
@@ -61,5 +66,27 @@
 	width: 100vw;
 	height: 100vh;
 	overflow: hidden;
-	background-color: rgba($color-dark, 0.7);
+	background-color: rgba($color-dark, 0.5);
+}
+
+.module__content--popup {
+	justify-self: center;
+	max-width: 920px;
+	width: 920px;
+	height: 210px;
+
+	background-color: #fff;
+}
+
+.module__close-button {
+	cursor: pointer;
+	position: relative;
+	top: calc(-210px + 46px);
+	left: calc(920px - 46px);
+	width: fit-content;
+	height: fit-content;
+}
+
+.semibold {
+	font-weight: 600;
 }
