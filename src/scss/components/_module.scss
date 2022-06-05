@@ -1,28 +1,38 @@
 @use "../abstracts/" as *;
 
 .module {
-	width: 1440px;
+	width: 100vw;
 	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 5%;
 	align-items: center;
 	align-content: start;
-	margin-top: 96px;
+	@media (min-width: $breakpoint-2xl) {
+		width: 1440px;
+		grid-template-columns: 1fr 1fr;
+		gap: 95px;
+		margin-top: 96px;
+	}
 }
 
 .module__content {
-	justify-self: left;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	max-width: 380px;
-	height: 250px;
+	min-height: 220px;
+	padding-inline: 1rem;
+	@media (min-width: $breakpoint-2xl) {
+		justify-self: left;
+		max-width: 380px;
+		height: 250px;
+		padding-inline: 0;
+	}
 }
 
 .module__image {
-	justify-self: right;
-	max-width: 505px;
-	height: 300px;
+	@media (min-width: $breakpoint-2xl) {
+		max-width: 505px;
+		height: 300px;
+		justify-self: right;
+	}
 }
 
 .module__button {
@@ -72,6 +82,10 @@
 
 .module__content--popup {
 	justify-self: center;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	row-gap: 24px;
+	padding: 56px 46px 56px 95px;
 	max-width: 920px;
 	width: 920px;
 	height: 210px;
@@ -82,12 +96,39 @@
 .module__close-button {
 	cursor: pointer;
 	position: relative;
-	top: calc(-210px + 46px);
-	left: calc(920px - 46px);
-	width: fit-content;
-	height: fit-content;
+	margin-top: -10px;
+	justify-self: right;
+	width: 12px;
+	height: 12px;
+	background: none;
+	border: none;
+	&::after {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 50%;
+		width: 2px;
+		height: 12px;
+		transform: rotate(45deg);
+		background-color: #000;
+	}
+	&::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 50%;
+		width: 2px;
+		height: 12px;
+		transform: rotate(-45deg);
+		background-color: #000;
+	}
 }
 
-.semibold {
+.module__text--semibold {
 	font-weight: 600;
+}
+
+.module__button--reset {
+	display: none;
+	justify-self: right;
 }
