@@ -12,33 +12,46 @@
 		<script defer src="./dist/all.js"></script>
 	</head>
 	<body>
-		<div class="module">
-			<div class="module__image">
-				<img
-					src="./images/sean-o-KMn4VEeEPR8-unsplash_1_s6zmfh_ar_16_9,c_fill,g_auto__c_scale,w_596.jpg"
-					alt="beach"
-				/>
-			</div>
+		<section class="module">
+			<img
+				class="module__image"
+				src="images/sean-o-KMn4VEeEPR8-unsplash_1_s6zmfh_ar_16_9,c_fill,g_auto__c_scale,w_596.jpg"
+				srcset="
+					images/sean-o-KMn4VEeEPR8-unsplash_1_s6zmfh_ar_16_9,c_fill,g_auto__c_scale,w_596.jpg  596w,
+					images/sean-o-KMn4VEeEPR8-unsplash_1_s6zmfh_c_scale,w_1234.jpg                       1234w,
+					images/sean-o-KMn4VEeEPR8-unsplash_1_s6zmfh_c_scale,w_1400.jpg                       1400w
+				"
+				alt="beach"
+			/>
+
 			<div class="module__content">
 				<h2 class="module__title">Lorem ipsum</h2>
-				<div class="module__text">
+				<p class="module__text">
 					Infinitely scalable, feature-rich and cloud-native data management and
 					protection for modern and legacy infrastructures and SaaS platforms,
 					managed via a single app with no hardware required.
-				</div>
+				</p>
 				<button id="button" class="module__button">Button</button>
 			</div>
 			<div id="popup" class="module__popup">
 				<div class="module__content module__content--popup">
 					<h2 class="module__title">Alert!</h2>
-					<div class="module__text">
+					<button class="module__close-button"></button>
+					<p class="module__text">
 						You have clicked
-						<span id="module-counter" class="semibold">0 times</span> to related
-						button
-					</div>
-					<button class="module__close-button">X</button>
+						<strong id="module-counter" class="module__text--semibold"
+							>0 times</strong
+						>
+						to related button
+					</p>
+					<button
+						id="module-reset-button"
+						class="module__button module__button--reset"
+					>
+						Reset
+					</button>
 				</div>
 			</div>
-		</div>
+		</section>
 	</body>
 </html>
