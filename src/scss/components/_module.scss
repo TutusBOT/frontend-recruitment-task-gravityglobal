@@ -28,6 +28,8 @@
 }
 
 .module__image {
+	width: 100%;
+	height: auto;
 	@media (min-width: $breakpoint-2xl) {
 		max-width: 505px;
 		height: 300px;
@@ -84,19 +86,61 @@
 	justify-self: center;
 	display: grid;
 	grid-template-columns: 1fr 1fr;
+	align-items: center;
 	row-gap: 24px;
-	padding: 56px 46px 56px 95px;
+	width: 100%;
 	max-width: 920px;
-	width: 920px;
-	height: 210px;
-
+	min-height: 210px;
+	padding-block: 0.25rem;
 	background-color: #fff;
+	@media (min-width: $breakpoint-2xl) {
+		width: 920px;
+		height: fit-content;
+		max-height: 90vh;
+		padding: 56px 46px 56px 46px;
+	}
+}
+
+.module__table-wrapper {
+	grid-column: span 2;
+	place-self: center;
+	width: 100%;
+	overflow: auto;
+	max-height: 500px;
+	// overflow-y: auto;
+}
+.module__table {
+	// grid-column: span 2;
+	// place-self: center;
+	// width: 100%;
+	min-width: 900px;
+	font-family: $font;
+	font-style: normal;
+	font-size: clamp(1rem, 1.5vw, 1.25rem);
+	color: $color-dark;
+	border-collapse: collapse;
+	// overflow-x: scroll;
+	td,
+	th {
+		padding-left: 0.25rem;
+		border: #000 1px solid;
+	}
+	@media (min-width: $breakpoint-lg) {
+		min-width: auto;
+		// overflow-x: hidden;
+	}
+	@media (min-width: $breakpoint-2xl) {
+		max-height: 500px;
+	}
+}
+
+.module__text--popup {
+	padding-block: 12px;
 }
 
 .module__close-button {
 	cursor: pointer;
 	position: relative;
-	margin-top: -10px;
 	justify-self: right;
 	width: 12px;
 	height: 12px;
@@ -121,6 +165,9 @@
 		height: 12px;
 		transform: rotate(-45deg);
 		background-color: #000;
+	}
+	@media (min-width: $breakpoint-2xl) {
+		margin-top: -10px;
 	}
 }
 
