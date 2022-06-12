@@ -1,4 +1,4 @@
-import Alert from "./components/Alert";
+import renderAlert from "./components/Alert";
 
 const openButton = document.getElementById("button");
-Alert("Alert!", openButton);
+renderAlert("Alert!", openButton);
