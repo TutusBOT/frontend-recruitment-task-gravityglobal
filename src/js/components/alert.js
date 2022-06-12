@@ -1,95 +1,126 @@
-import modal from "./modal";
-import button from "./button";
+import modal from "./Modal";
 import fetchData from "../helpers/fetchData";
+import createElement from "../helpers/createElement.js";
 
-export default alert = (title, openButton, counterKey = "alertCounter") => {
+/**
+ * Creates and appends alert element with counter and table including users data
+ * @param {string} title alert title
+ * @param {HTMLElement} openButton button that should open this alert
+ * @param {string} counterKey localstorage keyname for storing count value
+ * @returns {HTMLElement} alert element
+ */
+
+export default function renderAlert(
+	title,
+	openButton,
+	counterKey = "alertCounter"
+) {
 	let count = getCount(counterKey);
 
-	const alert = modal();
-	alert.classList.add("alert");
+	const table = createElement("table", { class: "alert__table loading" });
+	const tableWrapper = createElement("div", { class: "alert__table-wrapper" }, [
+		table,
+	]);
 
-	const alertContent = document.createElement("div");
-	alertContent.classList.add("alert__content");
-	alert.appendChild(alertContent);
+	const alertTitle = createElement(
+		"h2",
+		{ class: "alert__title", id: "alert-title" },
+		[title]
+	);
 
-	const tableWrapper = document.createElement("div");
-	tableWrapper.classList.add("alert__table-wrapper");
-	const table = document.createElement("table");
-	table.classList.add("alert__table", "loading");
-	tableWrapper.appendChild(table);
-
-	const alertTitle = document.createElement("h2");
-	alertTitle.innerText = title;
-	alertTitle.classList.add("alert__title");
-
-	const closeButton = button("", "alert__close-button", () => {
-		alert.style.display = "none";
+	const closeButton = createElement("button", { class: "alert__close-button" });
+	closeButton.addEventListener("click", () => {
+		Alert.style.display = "none";
+		openButton.focus();
 	});
+	const alertCounter = createElement(
+		"strong",
+		{ class: "alert__text--semibold" },
+		[`${count} ${count === 1 ? "time" : "times"}`]
+	);
+	const alertText = createElement("p", { class: "alert__text" }, [
+		"You have clicked",
+		alertCounter,
+		"related button.",
+	]);
 
-	const alertText = document.createElement("p");
-	alertText.classList.add("alert__text");
-	const alertCounter = document.createElement("strong");
-	alertCounter.classList.add("alert__text--semibold");
-	alertCounter.innerText = `${count} ${count === 1 ? "time" : "times"}`;
-	alertText.innerHTML = `You have clicked ${alertCounter.outerHTML} related button.`;
-
-	const resetButton = button("Reset", "button", () => {
-		localStorage[counterKey] = 0;
+	const resetButton = createElement(
+		"button",
+		{ class: "button button--reset" },
+		["Reset"]
+	);
+	resetButton.addEventListener("click", () => {
+		localStorage.setItem(counterKey, "0");
+		count = 0;
 		resetButton.style.display = "none";
-		alertCounter.innerText = "0 times";
-		alertText.innerHTML = `You have clicked ${alertCounter.outerHTML} to related button.`;
+		alertCounter.textContent = "0 times";
+		alertText.innerHTML = "";
+		alertText.append("You have clicked ", alertCounter, " to related button.");
 	});
-	resetButton.classList.add("button--reset");
-	alertContent.append(
+	const alertContent = createElement("div", { class: "alert__content" }, [
 		alertTitle,
 		closeButton,
 		tableWrapper,
 		alertText,
-		resetButton
+		resetButton,
+	]);
+	const Alert = modal(
+		openButton,
+		{ "aria-labelledby": "alert-title" },
+		alertContent
 	);
-	document.body.appendChild(alert);
+	Alert.classList.add("alert");
+	document.body.appendChild(Alert);
 	openButton.addEventListener("click", () => {
-		alert.style.display = "grid";
+		Alert.style.display = "grid";
+		closeButton.focus();
 		count++;
-		localStorage[counterKey] = count;
-		alertCounter.innerText = `${count} ${count === 1 ? "time" : "times"}`;
+		localStorage.setItem(counterKey, count);
+		alertCounter.textContent = `${count} ${count === 1 ? "time" : "times"}`;
 		alertText.innerHTML = `You have clicked ${alertCounter.outerHTML} to related button.`;
 		if (count > 5) {
 			resetButton.style.display = "block";
 		}
 		getUsers(table);
 	});
-	return alert;
-};
+	return Alert;
+}
 
 async function getUsers(table) {
 	const users = await fetchData("https://jsonplaceholder.typicode.com/users");
 	if (users) {
-		table.innerHTML =
-			"<tr><th>Imię</th><th>E-mail</th><th>Adres</th><th>Telefon</th><th>Firma</th></tr>";
-		users.forEach(({ name, address, email, company, phone }) => {
-			const tr = document.createElement("tr");
-			const tdName = document.createElement("td");
-			tdName.innerText = name;
-			const tdEmail = document.createElement("td");
-			tdEmail.innerText = email;
-			const tdAddress = document.createElement("td");
-			tdAddress.innerText = `${address.city} ${address.street} ${address.suite}`;
-			const tdPhone = document.createElement("td");
-			tdPhone.innerText = phone;
-			const tdCompany = document.createElement("td");
-			tdCompany.innerText = company.name;
-			tr.append(tdName, tdEmail, tdAddress, tdPhone, tdCompany);
-			table.appendChild(tr);
-		});
+		table.innerHTML = "";
+		const thead = createElement("thead", {}, [
+			createElement(
+				"tr",
+				{},
+				["Imię", "E-mail", "Adres", "Telefon", "Firma"].map((el) =>
+					createElement(el)
+				)
+			),
+		]);
+		const tbody = createElement(
+			"tbody",
+			{},
+			users.map(
+				({ name, address: { city, street, suite }, email, company, phone }) =>
+					createElement("tr", {}, [
+						createElement("td", {}, [name]),
+						createElement("td", {}, [email]),
+						createElement("td", {}, [`${city} ${street} ${suite}`]),
+						createElement("td", {}, [phone]),
+						createElement("td", {}, [company.name]),
+					])
+			)
+		);
+		table.append(thead, tbody);
 		table.classList.remove("loading");
 	}
 }
 
 function getCount(counterKey) {
-	let count = 0;
-	if (localStorage[counterKey]) {
-		count = parseInt(localStorage[counterKey]);
+	if (localStorage.getItem(counterKey)) {
+		return parseInt(localStorage.getItem(counterKey));
 	}
-	return count;
+	return 0;
 }

@@ -1,5 +1,13 @@
 import createElement from "../helpers/createElement";
 
+/**
+ * Creates modal element
+ * @param {HTMLElement} prevFocusedElement Previously focused element
+ * @param {object} attr Modal attributes
+ * @param {HTMLElement} child Modal child
+ * @returns {HTMLElement} Modal Element
+ */
+
 export default function Modal(prevFocusedElement, attr = {}, child = []) {
 	const modal = createElement(
 		"div",
