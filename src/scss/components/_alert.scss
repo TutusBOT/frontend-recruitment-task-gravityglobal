@@ -45,7 +45,7 @@
 			border: #000 1px solid;
 		}
 		@media (min-width: $breakpoint-lg) {
-			min-width: auto;
+			width: 100%;
 		}
 		@media (min-width: $breakpoint-2xl) {
 			max-height: 500px;
