@@ -10,7 +10,7 @@ Rozwiązanie spełnia wszystkie założenia zadania, w tym dodatkowy podpunkt.
 
 ## Demo
 
-[Link:](https://www.bartlomiej-tutak.pl/projekty/frontend-recruitment-task-gravityglobal/)
+[Link](https://www.bartlomiej-tutak.pl/projekty/frontend-recruitment-task-gravityglobal/)
 
 ## WCAG
 
